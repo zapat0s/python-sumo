@@ -53,7 +53,7 @@ class SumoController(object):
                 instance._latest_rx = datetime.datetime.now()
                 data = self.request[0]
                 # Intercept pictures
-                if data.startswith('\x03\x7d'):
+                if data.startswith(b'\x03\x7d'):
                     instance._latest_pic.append(data[12:])
 
         class UDPServer(socketserver.UDPServer):
@@ -95,7 +95,7 @@ class SumoController(object):
             raise InitTimeoutException(
                 'Failed to perform init with Sumo - could not connect'
             )
-        init_sock.sendall(json.dumps(init_msg) + '\x00')
+        init_sock.sendall(json.dumps(init_msg).encode('utf-8') + b'\x00')
 
         # Grab the JSON response, strip trailing \x00 to keep it valid.
         init_resp = init_sock.recv(1024)[:-1]
