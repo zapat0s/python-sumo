@@ -7,7 +7,7 @@ import socket
 import struct
 import threading
 import time
-import SocketServer
+import socketserver
 
 
 # Motor commands must be at 40 Hz for video to work.
@@ -46,7 +46,7 @@ class SumoController(object):
         # appropriately.
         instance = self
 
-        class UDPHandler(SocketServer.BaseRequestHandler):
+        class UDPHandler(socketserver.BaseRequestHandler):
             """ Handler for incoming UDP data.
             """
             def handle(self):
@@ -56,7 +56,7 @@ class SumoController(object):
                 if data.startswith('\x03\x7d'):
                     instance._latest_pic.append(data[12:])
 
-        class UDPServer(SocketServer.UDPServer):
+        class UDPServer(socketserver.UDPServer):
             allow_reuse_address = True
 
         self._d2c_server = UDPServer(('', d2c_port), UDPHandler)
@@ -213,7 +213,7 @@ class SumoController(object):
         self._commands.extend(
             [self._move_cmd(speed, turn)
              for _
-             in xrange(int(duration * MOTOR_HZ))]
+             in range(int(duration * MOTOR_HZ))]
         )
 
         if block:

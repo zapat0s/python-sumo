@@ -24,7 +24,7 @@ class Commands(object):
 
                     cmdname = cmd.getAttribute('name')
 
-                    print classname, cmdname, (projectid, classid, idx)
+                    print(classname, cmdname, (projectid, classid, idx))
 
 
 if __name__ == '__main__':
