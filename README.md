@@ -1,6 +1,6 @@
 # SumoPy
 
-Simple interface to Parrot Jumping Sumo, in Python.
+Simple interface to Parrot Jumping Sumo, in Python. Updated for Python 3.
 
 ## Note
 
